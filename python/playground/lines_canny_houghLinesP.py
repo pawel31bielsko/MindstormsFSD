@@ -17,7 +17,7 @@ low_threshold = 90
 high_threshold = 150
 edges = cv2.Canny(blur_gray, low_threshold, high_threshold)
 
-cv2.imshow("edges",edges)
+cv2.imshow("edges",edges) 
 
 
 rho = 1  # distance resolution in pixels of the Hough grid
