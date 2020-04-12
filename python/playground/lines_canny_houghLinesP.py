@@ -4,7 +4,7 @@ import matplotlib
 from matplotlib.pyplot import imshow
 from matplotlib import pyplot as plt
 
-img = cv2.imread('../photos/night2/image0.jpg')
+img = cv2.imread('../../database/photos/night2/image0.jpg')
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
 kernel_size = 7
