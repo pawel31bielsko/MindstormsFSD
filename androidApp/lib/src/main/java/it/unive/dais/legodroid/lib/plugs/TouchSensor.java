@@ -1,5 +1,7 @@
 package it.unive.dais.legodroid.lib.plugs;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.concurrent.Future;
 
@@ -23,6 +25,14 @@ public class TouchSensor extends AbstractSensor {
      */
     @NonNull
     public Future<Boolean> getPressed() throws IOException {
-        return getPercent1(Const.TOUCH_TOUCH, (x) -> x > 0);
+        return getPercent1(Const.TOUCH_TOUCH, (x) ->
+        {
+            if(x == 0) {
+                return false;
+            }else if(x == 100){
+                return  true;
+            }
+            return  null;
+        });
     }
 }

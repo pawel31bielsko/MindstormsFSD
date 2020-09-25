@@ -1,218 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/sensorView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-    </TextView>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/forward"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:background="@drawable/ic_baseline_arrow_upward_24">
-
-            </ImageButton>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/leftButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@drawable/ic_baseline_arrow_back_24"></ImageButton>
-        <ImageButton
-            android:id="@+id/rightButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@drawable/ic_baseline_arrow_forward_24"></ImageButton>
-    </LinearLayout>
-            <ImageButton
-                android:id="@+id/backwardButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:background="@drawable/ic_baseline_arrow_downward_24"></ImageButton>
-
-        </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Power main"
-            />
-        <com.google.android.material.slider.Slider
-            android:id="@+id/drivePowerSlider"
+            android:id="@+id/sensorView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:valueFrom="0.0"
-            android:value="100"
-            android:valueTo="100.0"
-            android:stepSize="10.0">
-        </com.google.android.material.slider.Slider>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Speed main"
-            />
-        <com.google.android.material.slider.Slider
-            android:id="@+id/driveSpeedSlider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:valueFrom="0.0"
-            android:valueTo="100.0"
-            android:value="100"
-            android:stepSize="10.0">
-        </com.google.android.material.slider.Slider>
-    </LinearLayout>
+            android:layout_height="100dp"></TextView>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Power turn"
-                />
-            <com.google.android.material.slider.Slider
-                android:id="@+id/turnPowerSlider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:valueFrom="0.0"
-                android:value="100"
-                android:valueTo="100.0"
-                android:stepSize="10.0">
-            </com.google.android.material.slider.Slider>
-        </LinearLayout>
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Speed turn"
-            />
-        <com.google.android.material.slider.Slider
-            android:id="@+id/turnSpeedSlider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:valueFrom="0.0"
-            android:valueTo="100.0"
-            android:value="100"
-            android:stepSize="10.0">
-        </com.google.android.material.slider.Slider>
-    </LinearLayout>
-    </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                android:orientation="vertical">
 
+                <ImageButton
+                    android:id="@+id/forward"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/ic_baseline_arrow_upward_24">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/turnSensorLeftButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:background="@drawable/ic_baseline_arrow_back_24"></ImageButton>
-            <ImageButton
-                android:id="@+id/turnSensorRightButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:background="@drawable/ic_baseline_arrow_forward_24"></ImageButton>
-        </LinearLayout>
+                </ImageButton>
 
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Power sensor turn"
-                    />
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/turnSensorPowerSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:valueFrom="0.0"
-                    android:value="100"
-                    android:valueTo="100.0"
-                    android:stepSize="10.0">
-                </com.google.android.material.slider.Slider>
+                    android:orientation="horizontal">
 
+                    <ImageButton
+                        android:id="@+id/leftButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:background="@drawable/ic_baseline_arrow_back_24"></ImageButton>
 
+                    <ImageButton
+                        android:id="@+id/rightButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:background="@drawable/ic_baseline_arrow_forward_24"></ImageButton>
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/backwardButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/ic_baseline_arrow_downward_24"></ImageButton>
+
+            </LinearLayout>
+
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Speed sensor turn"
-                        />
+                        android:text="Power main" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/drivePowerSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stepSize="10.0"
+                        android:value="100"
+                        android:valueFrom="0.0"
+                        android:valueTo="100.0"></com.google.android.material.slider.Slider>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Speed main" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/driveSpeedSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stepSize="10.0"
+                        android:value="100"
+                        android:valueFrom="0.0"
+                        android:valueTo="100.0"></com.google.android.material.slider.Slider>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Power turn" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/turnPowerSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stepSize="10.0"
+                        android:value="100"
+                        android:valueFrom="0.0"
+                        android:valueTo="100.0"></com.google.android.material.slider.Slider>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Speed turn" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/turnSpeedSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stepSize="10.0"
+                        android:value="100"
+                        android:valueFrom="0.0"
+                        android:valueTo="100.0"></com.google.android.material.slider.Slider>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/turnSensorLeftButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/ic_baseline_arrow_back_24"></ImageButton>
+
+                <ImageButton
+                    android:id="@+id/turnSensorRightButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/ic_baseline_arrow_forward_24"></ImageButton>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Power sensor turn" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/turnSensorPowerSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stepSize="10.0"
+                        android:value="100"
+                        android:valueFrom="0.0"
+                        android:valueTo="100.0"></com.google.android.material.slider.Slider>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Speed sensor turn" />
+
                     <com.google.android.material.slider.Slider
                         android:id="@+id/turnSensorSpeedSlider"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:valueFrom="0.0"
+                        android:stepSize="10.0"
                         android:value="100"
-                        android:valueTo="100.0"
-                        android:stepSize="10.0">
-                    </com.google.android.material.slider.Slider>
+                        android:valueFrom="0.0"
+                        android:valueTo="100.0"></com.google.android.material.slider.Slider>
 
 
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:text="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content">
+                </RadioButton>
+                <RadioButton android:text="2"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content">
+                </RadioButton>
+
+            </RadioGroup>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

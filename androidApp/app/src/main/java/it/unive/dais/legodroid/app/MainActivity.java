@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             this.teslaSteering = new TeslaSteering("EV3",new OnSensorChangedListener() {
                 @Override
-                public void onUltrasonicChanged(float distance) {
-                    Log.d(TAG, String.format("New distance %f", distance));
+                public void onUltrasonicChanged(int distance) {
+                    Log.d(TAG, String.format("New distance %d", distance));
                     statusMap.put("distance",distance);
                     printSensors();
                 }

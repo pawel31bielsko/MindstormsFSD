@@ -23,7 +23,7 @@ public class TeslaSteering {
     private TachoMotor turningMotor;
     private TachoMotor sensorRotationMotor;
     private TachoMotor gearMotor;
-    private  ChangeDetector changeDetector;
+    private ChangeDetector changeDetector;
 
 
     public TeslaSteering(String connectionName, OnSensorChangedListener listener, Consumer<Runnable> runOnUIThread) throws IOException, GenEV3.AlreadyRunningException {

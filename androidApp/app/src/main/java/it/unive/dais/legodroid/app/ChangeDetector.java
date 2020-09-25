@@ -19,7 +19,7 @@ public class ChangeDetector {
     private UltrasonicSensor ultrasonicSensor;
 
     private Boolean isPressed;
-    private Float distance;
+    private Integer distance;
 
 
     public ChangeDetector(EV3.Api api, EV3.InputPort touchSensorInputPort, EV3.InputPort ultrasonicSensorInputPort){
@@ -36,16 +36,17 @@ public class ChangeDetector {
     }
 
     public void detectChanges() throws IOException, ExecutionException, InterruptedException {
-        Future<Float> distance = ultrasonicSensor.getDistance();
-        if(this.distance == null || this.distance != distance.get() && distance.get() >= 0){
-            this.distance = distance.get();
+        Integer distance = Math.round(ultrasonicSensor.getDistance().get());
+        if(distance >= 0 && distance <= 100 && (this.distance == null || this.distance != distance)){
+            this.distance = distance;
             if(this.onSensorChangedListener != null && this.runOnUIThread != null){
                 this.runOnUIThread.call(() -> this.onSensorChangedListener.onUltrasonicChanged(this.distance));
             }
         }
 
         Future<Boolean> isPressed = touchSensor.getPressed();
-        if(this.isPressed == null || this.isPressed != isPressed.get()){
+
+        if(isPressed.get() != null && (this.isPressed == null || this.isPressed != isPressed.get())){
             this.isPressed = isPressed.get();
             if(this.onSensorChangedListener != null && this.runOnUIThread != null){
                 this.runOnUIThread.call(() -> this.onSensorChangedListener.onTouchSensorChanged(this.isPressed));
