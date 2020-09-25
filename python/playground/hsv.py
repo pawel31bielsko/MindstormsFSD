@@ -5,7 +5,7 @@ def nothing(x):
     pass
 
 # Load image
-image = cv2.imread('../../database/photos/night2/image0.jpg')
+image = cv2.imread('D:/Users/pawel/Google Drive/mindstorms/database/photos/fix_camera/morning2/image2.jpg')
 
 # Create a window
 cv2.namedWindow('image')
