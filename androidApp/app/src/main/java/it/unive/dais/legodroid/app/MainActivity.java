@@ -3,7 +3,10 @@ package it.unive.dais.legodroid.app;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton turnSensorLeftButton;
     private ImageButton turnSensorRightButton;
     private Slider turnSensorSpeedSlider;
-    private  Slider turnSensorPowerSlider;
+    private Slider turnSensorPowerSlider;
+    private RadioButton gearOneRadio;
+    private RadioButton gearTwoRadio;
+    private RadioGroup gearRadioGroup;
+
+    private Button syncGearButton;
     // quick wrapper for accessing the private field MainActivity.motor only when not-null; also ignores any exception thrown
 
 
@@ -49,33 +57,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.sensorView = findViewById(R.id.sensorView);
         forwardButton = (ImageButton) findViewById(R.id.forward);
-        backwardButton = (ImageButton)findViewById(R.id.backwardButton);
+        backwardButton = (ImageButton) findViewById(R.id.backwardButton);
         mainEnginePowerSlider = (Slider) findViewById(R.id.drivePowerSlider);
-        mainEngineSpeedSlider = (Slider)findViewById(R.id.driveSpeedSlider);
+        mainEngineSpeedSlider = (Slider) findViewById(R.id.driveSpeedSlider);
 
-        leftButton = (ImageButton)findViewById(R.id.leftButton);
+        leftButton = (ImageButton) findViewById(R.id.leftButton);
         rightButton = (ImageButton) findViewById(R.id.rightButton);
-        turnEngineSpeedSlider = (Slider)findViewById(R.id.turnSpeedSlider);
-        turnEnginePowerSlider = (Slider)findViewById(R.id.turnPowerSlider);
+        turnEngineSpeedSlider = (Slider) findViewById(R.id.turnSpeedSlider);
+        turnEnginePowerSlider = (Slider) findViewById(R.id.turnPowerSlider);
 
         turnSensorLeftButton = (ImageButton) findViewById(R.id.turnSensorLeftButton);
         turnSensorRightButton = (ImageButton) findViewById(R.id.turnSensorRightButton);
-        turnSensorPowerSlider = (Slider)findViewById(R.id.turnSensorPowerSlider);
+        turnSensorPowerSlider = (Slider) findViewById(R.id.turnSensorPowerSlider);
         turnSensorSpeedSlider = (Slider) findViewById(R.id.turnSensorSpeedSlider);
+        syncGearButton = (Button) findViewById(R.id.syncGearButton);
+        gearOneRadio = (RadioButton)  findViewById(R.id.radioGearOne);
+        gearTwoRadio = (RadioButton) findViewById(R.id.radioGearTwo);
+        gearRadioGroup = (RadioGroup) findViewById(R.id.gearRadioGroup);
 
         try {
-            this.teslaSteering = new TeslaSteering("EV3",new OnSensorChangedListener() {
+            this.teslaSteering = new TeslaSteering("EV3", new OnSensorChangedListener() {
                 @Override
                 public void onUltrasonicChanged(int distance) {
                     Log.d(TAG, String.format("New distance %d", distance));
-                    statusMap.put("distance",distance);
+                    statusMap.put("distance", distance);
                     printSensors();
                 }
 
                 @Override
                 public void onTouchSensorChanged(boolean isPressed) {
                     Log.d(TAG, String.format("Is pressed changed: %b", isPressed));
-                    statusMap.put("isPressed",isPressed);
+                    statusMap.put("isPressed", isPressed);
                     printSensors();
                 }
             }, r -> this.runOnUiThread(r));
@@ -84,12 +96,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        forwardButton.setOnTouchListener((v,e) ->drive(e,1));
-        backwardButton.setOnTouchListener((v,e) ->drive(e,-1));
-        leftButton.setOnTouchListener((v,e) -> turn(e,-1));
-        rightButton.setOnTouchListener((v,e) -> turn(e,1));
-        turnSensorRightButton.setOnTouchListener((v,e) -> turnSensors(e,1));
-        turnSensorLeftButton.setOnTouchListener((v,e) -> turnSensors(e,-1));
+        forwardButton.setOnTouchListener((v, e) -> drive(e, 1));
+        backwardButton.setOnTouchListener((v, e) -> drive(e, -1));
+        leftButton.setOnTouchListener((v, e) -> turn(e, -1));
+        rightButton.setOnTouchListener((v, e) -> turn(e, 1));
+        turnSensorRightButton.setOnTouchListener((v, e) -> turnSensors(e, 1));
+        turnSensorLeftButton.setOnTouchListener((v, e) -> turnSensors(e, -1));
+        syncGearButton.setOnClickListener((v) -> teslaSteering.testGear());
+        gearRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int gear = checkedId == R.id.radioGearOne ?1:2;
+            this.teslaSteering.changeGear(gear);
+        });
 
 
 //        Joystick joystick = (Joystick) findViewById(R.id.joystick);
@@ -116,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    private void  printSensors(){
+    private void printSensors() {
         try {
             sensorView.setText(new JSONObject(statusMap).toString(3));
         } catch (JSONException e) {
@@ -124,31 +141,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean drive(MotionEvent e, int direction){
-        if(e.getAction() == MotionEvent.ACTION_DOWN){
-            this.teslaSteering.drive((int)mainEngineSpeedSlider.getValue(),(int) mainEnginePowerSlider.getValue(), direction );
-        }else if(e.getAction() == MotionEvent.ACTION_UP){
+    private boolean drive(MotionEvent e, int direction) {
+        if (e.getAction() == MotionEvent.ACTION_DOWN) {
+            this.teslaSteering.drive((int) mainEngineSpeedSlider.getValue(), (int) mainEnginePowerSlider.getValue(), direction);
+        } else if (e.getAction() == MotionEvent.ACTION_UP) {
             this.teslaSteering.stopDriving();
         }
-        return  true;
+        return true;
     }
 
-    private boolean turn(MotionEvent e, int direction){
-        if(e.getAction() == MotionEvent.ACTION_DOWN){
-            this.teslaSteering.turn((int)turnEngineSpeedSlider.getValue(),(int) turnEnginePowerSlider.getValue(), direction );
-        }else if(e.getAction() == MotionEvent.ACTION_UP){
+    private boolean turn(MotionEvent e, int direction) {
+        if (e.getAction() == MotionEvent.ACTION_DOWN) {
+            this.teslaSteering.turn((int) turnEngineSpeedSlider.getValue(), (int) turnEnginePowerSlider.getValue(), direction);
+        } else if (e.getAction() == MotionEvent.ACTION_UP) {
             this.teslaSteering.stopTurning();
         }
-        return  true;
+        return true;
     }
 
-    private boolean turnSensors(MotionEvent e, int direction){
-        if(e.getAction() == MotionEvent.ACTION_DOWN){
-            this.teslaSteering.turnSensors((int)turnSensorSpeedSlider.getValue(),(int) turnSensorPowerSlider.getValue(), direction );
-        }else if(e.getAction() == MotionEvent.ACTION_UP){
+    private boolean turnSensors(MotionEvent e, int direction) {
+        if (e.getAction() == MotionEvent.ACTION_DOWN) {
+            this.teslaSteering.turnSensors((int) turnSensorSpeedSlider.getValue(), (int) turnSensorPowerSlider.getValue(), direction);
+        } else if (e.getAction() == MotionEvent.ACTION_UP) {
             this.teslaSteering.stopTurningSensors();
         }
-        return  true;
+        return true;
     }
 }
 

@@ -233,15 +233,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <Button
+                android:id="@+id/syncGearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Test gear"
+                android:drawableLeft="@drawable/ic_sync_alt_24px">
+            </Button>
             <RadioGroup
+                android:id="@+id/gearRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton android:text="1"
+                    android:id="@+id/radioGearOne"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:checked="true">
                 </RadioButton>
-                <RadioButton android:text="2"
+                <RadioButton
+                    android:id="@+id/radioGearTwo"
+                    android:text="2"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content">
                 </RadioButton>

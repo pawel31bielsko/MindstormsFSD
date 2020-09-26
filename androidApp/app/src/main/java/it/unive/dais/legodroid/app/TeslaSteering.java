@@ -24,6 +24,9 @@ public class TeslaSteering {
     private TachoMotor sensorRotationMotor;
     private TachoMotor gearMotor;
     private ChangeDetector changeDetector;
+    private TouchSensor touchSensor;
+    private UltrasonicSensor ultrasonicSensor;
+    private Integer gear = null;
 
 
     public TeslaSteering(String connectionName, OnSensorChangedListener listener, Consumer<Runnable> runOnUIThread) throws IOException, GenEV3.AlreadyRunningException {
@@ -36,7 +39,9 @@ public class TeslaSteering {
             this.sensorRotationMotor = api.getTachoMotor(EV3.OutputPort.C);
             applyMotor(sensorRotationMotor, m -> m.setType(TachoMotor.Type.MEDIUM));
             this.gearMotor = api.getTachoMotor(EV3.OutputPort.B);
-            this.changeDetector = new ChangeDetector(api,EV3.InputPort._1, EV3.InputPort._4);
+            this.touchSensor = api.getTouchSensor(EV3.InputPort._1);
+            this.ultrasonicSensor = api.getUltrasonicSensor(EV3.InputPort._4);
+            this.changeDetector = new ChangeDetector(api,this.touchSensor,this.ultrasonicSensor);
             this.changeDetector.setOnSensorChangedListener(listener, runOnUIThread);
             mainLoop(api);
         });
@@ -128,13 +133,51 @@ public class TeslaSteering {
         });
     }
 
-    private  void mainLoop(EV3.Api api){
+    public void changeGear(int gear){
+        if(this.gear != gear){
+            applyMotor(this.gearMotor, m->{
+                m.setPolarity(this.gear == 1 ? TachoMotor.Polarity.FORWARD : TachoMotor.Polarity.BACKWARDS);
+                m.setStepSpeed(80,20,220,20,true);
+                this.gear = gear;
+            });
+        }
+    }
+
+    public void testGear(){
+        applyMotor(this.gearMotor, m->{
+            m.setPolarity(TachoMotor.Polarity.FORWARD);
+            m.setStepSpeed(80,20,220,20,true);
+        });
+    }
+
+    private void mainLoop(EV3.Api api){
         while (!api.ev3.isCancelled()) {
             try {
                 this.changeDetector.detectChanges();
+                initGearIfNeeded(api);
             } catch (IOException |ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void initGearIfNeeded(EV3.Api api) throws IOException, ExecutionException, InterruptedException {
+        if(gear != null || this.changeDetector.isPressed() == null){
+            return;
+        }
+
+        if (!this.changeDetector.isPressed()) {
+            this.gearMotor.setPolarity(TachoMotor.Polarity.BACKWARDS);
+            this.gearMotor.setSpeed(10);
+            this.gearMotor.start();
+            while (this.changeDetector.isPressed() == false) {
+                this.changeDetector.detectChanges();
+            }
+            this.gearMotor.stop();
+
+            this.gearMotor.setStepSpeed(10,0,10,0,true);
+            this.gearMotor.resetPosition();
+        }
+        this.gear = 1;
     }
 }

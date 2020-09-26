@@ -22,17 +22,21 @@ public class ChangeDetector {
     private Integer distance;
 
 
-    public ChangeDetector(EV3.Api api, EV3.InputPort touchSensorInputPort, EV3.InputPort ultrasonicSensorInputPort){
+    public ChangeDetector(EV3.Api api, TouchSensor touchSensor, UltrasonicSensor ultrasonicSensor){
         this.api = api;
         this.isPressed = null;
         this.distance = null;
-        this.touchSensor = api.getTouchSensor(touchSensorInputPort);
-        this.ultrasonicSensor = api.getUltrasonicSensor(ultrasonicSensorInputPort);
+        this.touchSensor = touchSensor;
+        this.ultrasonicSensor = ultrasonicSensor;
     }
 
     public void setOnSensorChangedListener(OnSensorChangedListener listener, Consumer<Runnable> runOnUIThread){
         this.onSensorChangedListener = listener;
         this.runOnUIThread = runOnUIThread;
+    }
+
+    public Boolean isPressed(){
+        return isPressed;
     }
 
     public void detectChanges() throws IOException, ExecutionException, InterruptedException {
