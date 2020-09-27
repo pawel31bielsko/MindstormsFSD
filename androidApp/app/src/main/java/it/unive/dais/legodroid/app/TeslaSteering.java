@@ -1,10 +1,6 @@
 package it.unive.dais.legodroid.app;
-
-import androidx.annotation.NonNull;
-
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.GenEV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
